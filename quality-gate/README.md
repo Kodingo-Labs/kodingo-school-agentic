@@ -2,6 +2,10 @@
 
 Prompts para GitHub Copilot Chat que implementan un proceso de Quality Gate antes de merge a producción o certificación. Cada agente analiza el código y genera un reporte `.md` estructurado.
 
+**Inventario de todos los archivos del repo:** [`../docs/ARCHIVOS.md`](../docs/ARCHIVOS.md)
+
+> **Kodingo School (Node / Python / React):** usa el agente dedicado en [`../code-review/`](../code-review/) y la skill Cursor en [`.cursor/skills/kodingo-code-review/`](../.cursor/skills/kodingo-code-review/). Esta carpeta `quality-gate/` está orientada a **Java / Quarkus / Spring**.
+
 ---
 
 ## Estructura de archivos

@@ -1,0 +1,94 @@
+# Registro de agentes — kodingo-school-agentic
+# El framework (framework/kodingo_agents) carga este archivo y ensambla prompts desde los .md referenciados.
+
+version: 1
+
+agents:
+  kodingo-code-review:
+    name: Code Review Kodingo
+    description: Revisión de PRs y diffs en repos kodingo-school-* (Node, Python, React, Terraform).
+    stack: kodingo
+    prompt_files:
+      - .cursor/skills/kodingo-code-review/SKILL.md
+      - .cursor/skills/kodingo-code-review/checklist.md
+    template: code-review/templates/reporte-code-review.md
+    output:
+      dir: docs/quality-gate
+      filename: reporte-code-review-{date}.md
+    context:
+      collect_diff: true
+      diff_max_lines: 400
+
+  quality-gate-orchestrator:
+    name: Quality Gate — Orquestador
+    description: Diagnóstico inicial y consolidación del quality gate Java.
+    stack: java
+    prompt_files:
+      - quality-gate/github-prompts/agente-00-orquestador.prompt.md
+    output:
+      dir: docs/quality-gate
+      filename: dashboard-quality-gate-{date}.md
+    context:
+      collect_diff: false
+
+  quality-gate-code-review:
+    name: Quality Gate — Code Review Java
+    description: Code review Java / Quarkus / Spring.
+    stack: java
+    prompt_files:
+      - quality-gate/github-prompts/agente-01-code-review.prompt.md
+    template: code-review/templates/reporte-code-review.md
+    output:
+      dir: docs/quality-gate
+      filename: reporte-code-review-{date}.md
+    context:
+      collect_diff: true
+      diff_max_lines: 400
+
+  quality-gate-deuda-tecnica:
+    name: Quality Gate — Deuda técnica
+    stack: java
+    prompt_files:
+      - quality-gate/github-prompts/agente-02-deuda-tecnica.prompt.md
+    output:
+      dir: docs/quality-gate
+      filename: reporte-deuda-tecnica-{date}.md
+    context:
+      collect_diff: true
+      diff_max_lines: 300
+
+  quality-gate-pruebas:
+    name: Quality Gate — Pruebas unitarias
+    stack: java
+    prompt_files:
+      - quality-gate/github-prompts/agente-03-pruebas-unitarias.prompt.md
+    output:
+      dir: docs/quality-gate
+      filename: reporte-pruebas-unitarias-{date}.md
+    context:
+      collect_diff: false
+
+  quality-gate-migracion-quarkus:
+    name: Quality Gate — Migración Quarkus
+    stack: java
+    prompt_files:
+      - quality-gate/github-prompts/agente-04-migracion-quarkus.prompt.md
+    output:
+      dir: docs/quality-gate
+      filename: reporte-migracion-springboot-quarkus-{date}.md
+    context:
+      collect_diff: false
+
+pipelines:
+  kodingo-code-review:
+    description: Un solo agente de review para ecosistema Kodingo School.
+    agents:
+      - kodingo-code-review
+
+  quality-gate-java:
+    description: Secuencia completa quality gate Java (sin orquestador automático de diagnóstico).
+    agents:
+      - quality-gate-code-review
+      - quality-gate-deuda-tecnica
+      - quality-gate-pruebas
+      - quality-gate-migracion-quarkus

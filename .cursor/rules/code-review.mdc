@@ -1,0 +1,15 @@
+---
+description: Activa contexto de code review Kodingo cuando el usuario pide revisar PR, diff o calidad de código
+alwaysApply: false
+---
+
+# Code review Kodingo School
+
+Si el usuario pide **code review**, **revisar PR**, **revisar diff** o **quality gate** en repos `kodingo-school-*`:
+
+1. Aplica la skill **kodingo-code-review** (`.cursor/skills/kodingo-code-review/SKILL.md`).
+2. Lee el checklist por repo antes de emitir veredicto.
+3. Solo reporta hallazgos; no edites código salvo petición explícita posterior.
+4. Salida en español, formato `CR-NNN`, plantilla en `code-review/templates/reporte-code-review.md`.
+
+No uses los agentes Java de `quality-gate/` para repos Node/Python/React salvo que el usuario lo pida explícitamente.

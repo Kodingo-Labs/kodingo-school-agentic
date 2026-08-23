@@ -1,0 +1,27 @@
+[project]
+name = "kodingo-agents"
+version = "0.1.0"
+description = "Framework de agentes para Kodingo School — carga prompts MD, contexto git y ejecución opcional vía Cursor SDK"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+cursor = ["cursor-sdk>=0.1.0"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+kodingo-agent = "kodingo_agents.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kodingo_agents*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

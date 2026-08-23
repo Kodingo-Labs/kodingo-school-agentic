@@ -1,0 +1,6 @@
+framework/.venv/
+framework/**/__pycache__/
+framework/**/*.egg-info/
+framework/.pytest_cache/
+.runtime/
+.DS_Store
